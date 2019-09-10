@@ -2,7 +2,7 @@
 BIN := blueprint
 
 # Where to push the docker image.
-REGISTRY ?= martinheinz
+REGISTRY ?= docker.pkg.github.com/martinheinz/go-project-blueprint
 
 # This version-strategy uses git tags to set the version string
 VERSION := $(shell git describe --tags --always --dirty)
@@ -130,7 +130,7 @@ container: .container-$(DOTFILE_IMAGE) say_container_name
 	    -e 's|{ARG_ARCH}|$(ARCH)|g'      \
 	    -e 's|{ARG_OS}|$(OS)|g'          \
 	    -e 's|{ARG_FROM}|$(BASEIMAGE)|g' \
-	    Dockerfile.in > .dockerfile-$(OS)_$(ARCH)
+	    in.Dockerfile > .dockerfile-$(OS)_$(ARCH)
 	@docker build -t $(IMAGE):$(TAG) -t $(IMAGE):latest -f .dockerfile-$(OS)_$(ARCH) .
 	@docker images -q $(IMAGE):$(TAG) > $@
 
