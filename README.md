@@ -46,3 +46,11 @@ docker run docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:late
 - On Travis CI:
     - Set `DOCKER_USERNAME`
     - Set `DOCKER_PASSWORD` to Your GitHub Registry Token
+
+### Setup CodeClimate
+- Go to <https://codeclimate.com/github/repos/new>
+- Add Repository
+- Go to Test Coverage Tab
+- Copy Test Reporter ID
+- Go to Travis and Open Settings for Your Repository
+- Add Environment Variable: name: `CC_TEST_REPORTER_ID`, value: _Copied from CodeClimate_
