@@ -1,0 +1,57 @@
+matrix:
+  include:
+    - language: go  # Build and Test
+      sudo: required
+      services:
+        - docker
+      script:
+        - export GO111MODULE=on
+        - go mod vendor
+        - make build
+        - test -f bin/linux_amd64/blueprint
+        - make all-container
+        - docker images | grep "^docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint.*__linux_amd64"
+        - make test
+
+    - language: go  # SonarCloud
+      addons:
+        sonarcloud:
+          organization: martinheinz-github
+          token:
+            secure: "tYsUxue9kLZWb+Y8kwU28j2sa0pq20z2ZvZrbKCN7Sw0WGtODQLaK9tZ94u1Sy02qL5QcabukbENmbvfouzXf4EfaKjDmYH9+Ja22X26MfTLVpaCDTQEGmNyREOFCHpjNXPgDMv1C70By5U+aPWSYF/lehB5rFijwCf7rmTFRNUDeotCTCuWb2dIkrX2i6raVu34SvqqGxKQmmH+NPLe7uKO/wXqH+cWQH1P9oJYeVksNGruw4M0MznUeQHeJQYpTLooxhEEzYiBbkerWGDMwBdZdPQwVrO2b8FEDRw/GWTFoL+FkdVMl4n4lrbO/cQLbPMTGcfupNCuVHh1n8cGp8spMkrfQGtKqvDRuz2tBs0n1PWXCRS6pgZQw/ClLPgi/vVryVRwOabIHSQQLRVhcdp8pkYdyX3aH1EdlIHiJLT6sacS0vJPqZMF/HNsPEoHe4YdiYvx/tcYMU63KQVZzgF4HfQMWy69s1d0RZUqd+wrtHU1DHwnkq1TSe+8nMlbvbmMsm6FVqGistrnVjx4C9TjDWQcjprYU40zCvc1uvoSPimVcaD8ITalCDHlEfoV7wZuisV8+gJzOh9pDZ/joohW7/P3zklGgI2sH7qt62GE4o5UyRArzJC7eIj7Oxx6GdbeEqw09M4rCfR1g5tHWIqVHz5CajvkXkPqrRGu2oI="
+      before_script:
+        - ./reports.sh
+        - export GO111MODULE=on
+        - go mod vendor
+        - make ci
+      script:
+        - sonar-scanner
+
+    - language: go  # CodeClimate
+      before_script:
+        - ./reports.sh
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+
+      script:
+        - export GO111MODULE=on
+        - go mod vendor
+        - make ci
+
+      after_script:
+        - ./cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT
+
+    - language: go  # Push if on master
+      services:
+        - docker
+      if: branch = master
+      script:
+        - export GO111MODULE=on
+        - go mod vendor
+        - echo "$DOCKER_PASSWORD" | docker login docker.pkg.github.com -u "$DOCKER_USERNAME" --password-stdin
+        - make container
+        - make push
+
+notifications:
+  email: false

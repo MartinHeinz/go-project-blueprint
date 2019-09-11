@@ -1,5 +1,11 @@
 ## Blueprint/Boilerplate For Golang Projects
 
+
+### Setting Up
+- Replace All Occurrences of `martinheinz/go-project-blueprint` with your username repository name
+- Replace All Occurrences of `blueprint` with your desired image name
+
+
 ### Using GitHub Registry
 
 Create and Push:
@@ -18,3 +24,25 @@ Pull and Run:
 docker pull docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
 docker run docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
 ```
+
+
+### Setup new SonarCloud Project
+
+- On _SonarCloud_:
+    - Click _Plus_ Sign in Upper Right Corner
+    - _Analyze New Project_
+    - Click _GitHub app configuration_ link
+    - Configure SonarCloud
+    - Select Repository and Save
+    - Go Back to Analyze Project
+    - Tick Newly Added Repository
+    - Click Set Up
+    - Click Configure with Travis
+    - Copy the Command to Encrypt the Travis Token
+    - Run `travis encrypt --com <TOKEN_YOU_COPPIED>`
+    - Populate the `secure` Field in `.travis.yml` with outputted string
+    - Follow steps to populate your `sonar-project.properties`
+    - Push
+- On Travis CI:
+    - Set `DOCKER_USERNAME`
+    - Set `DOCKER_PASSWORD` to Your GitHub Registry Token
