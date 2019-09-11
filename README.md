@@ -10,6 +10,11 @@
 - Replace All Occurrences of `blueprint` with your desired image name
 
 
+### Adding New Libraries/Dependencies
+```bash
+go mod vendor
+```
+
 ### Using GitHub Registry
 
 Create and Push:
