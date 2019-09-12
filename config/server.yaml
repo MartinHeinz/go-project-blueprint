@@ -1,0 +1,1 @@
+dsn: "postgres://postgres:postgres@db:5432/blueprint?sslmode=disable"
