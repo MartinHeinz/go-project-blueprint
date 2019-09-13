@@ -12,6 +12,7 @@ type appConfig struct {
 	ConfigVar string
 }
 
+// Loads config from files
 func LoadConfig(configPaths ...string) error {
 	v := viper.New()
 	v.SetConfigName("example")

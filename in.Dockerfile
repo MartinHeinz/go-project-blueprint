@@ -6,3 +6,5 @@ COPY ./config /config
 EXPOSE 1234
 
 ENTRYPOINT ["/{ARG_BIN}"]
+
+# Used in Makefile - `make container` step
