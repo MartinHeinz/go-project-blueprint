@@ -169,7 +169,6 @@ test: $(BUILD_DIRS)
 	    -v $$(pwd)/.go/bin/$(OS)_$(ARCH):/go/bin/$(OS)_$(ARCH)  \
 	    -v $$(pwd)/.go/cache:/.cache                            \
 	    -v $$(pwd)/config:/config                               \
-	    -v $$(pwd)/cmd/blueprint/test_data:/test_data           \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    $(TEST_IMAGE)                                           \
@@ -192,7 +191,6 @@ ci: $(BUILD_DIRS)
 	    -v $$(pwd)/.go/cache:/.cache                            \
 	    -v $$(pwd)/reports:/reports                             \
 	    -v $$(pwd)/config:/config                               \
-	    -v $$(pwd)/cmd/blueprint/test_data:/test_data           \
 	    -v $$(pwd)/:/coverage                                   \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \

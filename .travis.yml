@@ -5,14 +5,14 @@ matrix:
       sudo: required
       services:
         - docker
-      script:  # Downloads required Go packages, builds application, check presence of created images and runs tests inside test image
+      script:
         - export GO111MODULE=on
-        - go mod vendor
-        - make build
-        - test -f bin/linux_amd64/blueprint
-        - make all-container
-        - docker images | grep "^docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint.*__linux_amd64"
-        - make test
+        - go mod vendor  # Download dependencies
+        - make build  # Build application
+        - test -f bin/linux_amd64/blueprint  # Test for presence of binary built in previous step
+        - make all-container  # Make all Docker containers
+        - docker images | grep "^docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint.*__linux_amd64"  # Check presence of created images
+        - make test  # Runs tests inside test image
 
     - language: go  # SonarCloud
       addons:
@@ -20,26 +20,26 @@ matrix:
           organization: martinheinz-github
           token:
             secure: "tYsUxue9kLZWb+Y8kwU28j2sa0pq20z2ZvZrbKCN7Sw0WGtODQLaK9tZ94u1Sy02qL5QcabukbENmbvfouzXf4EfaKjDmYH9+Ja22X26MfTLVpaCDTQEGmNyREOFCHpjNXPgDMv1C70By5U+aPWSYF/lehB5rFijwCf7rmTFRNUDeotCTCuWb2dIkrX2i6raVu34SvqqGxKQmmH+NPLe7uKO/wXqH+cWQH1P9oJYeVksNGruw4M0MznUeQHeJQYpTLooxhEEzYiBbkerWGDMwBdZdPQwVrO2b8FEDRw/GWTFoL+FkdVMl4n4lrbO/cQLbPMTGcfupNCuVHh1n8cGp8spMkrfQGtKqvDRuz2tBs0n1PWXCRS6pgZQw/ClLPgi/vVryVRwOabIHSQQLRVhcdp8pkYdyX3aH1EdlIHiJLT6sacS0vJPqZMF/HNsPEoHe4YdiYvx/tcYMU63KQVZzgF4HfQMWy69s1d0RZUqd+wrtHU1DHwnkq1TSe+8nMlbvbmMsm6FVqGistrnVjx4C9TjDWQcjprYU40zCvc1uvoSPimVcaD8ITalCDHlEfoV7wZuisV8+gJzOh9pDZ/joohW7/P3zklGgI2sH7qt62GE4o5UyRArzJC7eIj7Oxx6GdbeEqw09M4rCfR1g5tHWIqVHz5CajvkXkPqrRGu2oI="
-      before_script:  # Creates directories and files, download required libraries, runs tests and generates reports for coverage
-        - ./reports.sh
+      before_script:
+        - ./reports.sh  # Creates directories and files for reports
         - export GO111MODULE=on
-        - go mod vendor
-        - make ci
+        - go mod vendor  # Download dependencies
+        - make ci  # Run tests and generate reports (See `ci` step in Makefile)
       script:
-        - sonar-scanner
+        - sonar-scanner  # Run analysis using SonarCloud scanner plugin
 
     - language: go  # CodeClimate
       before_script:
-        - ./reports.sh
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build
+        - ./reports.sh  # Create directories and files for reports
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter  # Download CodeClimate test reporter
+        - chmod +x ./cc-test-reporter  # Make it executable
+        - ./cc-test-reporter before-build  # Notify CodeClimate of pending report
       script:
         - export GO111MODULE=on
-        - go mod vendor
-        - make ci
+        - go mod vendor  # Download dependencies
+        - make ci  # Run tests and generate reports (See `ci` step in Makefile)
       after_script:
-        - ./cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT
+        - ./cc-test-reporter after-build -t gocov --exit-code $TRAVIS_TEST_RESULT  # Send report to CodeClimate or notify it of failing build based on exit code
 
     - language: go  # Push if on master
       services:
@@ -47,10 +47,10 @@ matrix:
       if: branch = master
       script:
         - export GO111MODULE=on
-        - go mod vendor
-        - echo "$DOCKER_PASSWORD" | docker login docker.pkg.github.com -u "$DOCKER_USERNAME" --password-stdin
-        - make container
-        - make push
+        - go mod vendor  # Download dependencies
+        - echo "$DOCKER_PASSWORD" | docker login docker.pkg.github.com -u "$DOCKER_USERNAME" --password-stdin  # Login to GitHub Registry using Travis environment variables
+        - make container  # Create dirty and latest images
+        - make push  # Push image to registry
 
 notifications:
   email: false
