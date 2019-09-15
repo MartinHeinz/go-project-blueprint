@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Config is global object that holds all application level variables.
 var Config appConfig
 
 type appConfig struct {
@@ -12,7 +13,7 @@ type appConfig struct {
 	ConfigVar string
 }
 
-// Loads config from files
+// LoadConfig loads config from files
 func LoadConfig(configPaths ...string) error {
 	v := viper.New()
 	v.SetConfigName("example")
@@ -25,8 +26,5 @@ func LoadConfig(configPaths ...string) error {
 	if err := v.ReadInConfig(); err != nil {
 		return fmt.Errorf("failed to read the configuration file: %s", err)
 	}
-	if err := v.Unmarshal(&Config); err != nil {
-		return err
-	}
-	return nil
+	return v.Unmarshal(&Config)
 }
