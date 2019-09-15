@@ -142,7 +142,6 @@ push: .push-$(DOTFILE_IMAGE) say_push_name
 	@docker push $(IMAGE):$(TAG)
 
 push-latest: .push-$(DOTFILE_IMAGE) say_push_name_latest
-.push-$(DOTFILE_IMAGE): .container-$(DOTFILE_IMAGE)
 	@docker push $(IMAGE):latest
 
 say_push_name:
