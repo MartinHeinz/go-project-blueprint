@@ -1,3 +1,5 @@
+# This is adapted from https://github.com/thockin/go-build-template
+
 # The binary to build (just the basename).
 BIN := blueprint
 
@@ -6,7 +8,7 @@ REGISTRY ?= docker.pkg.github.com/martinheinz/go-project-blueprint
 
 # This version-strategy uses git tags to set the version string
 VERSION := $(shell git describe --tags --always --dirty)
-#
+
 # This version-strategy uses a manual value to set the version string
 #VERSION := 1.2.3
 
@@ -28,11 +30,11 @@ IMAGE := $(REGISTRY)/$(BIN)
 TAG := $(VERSION)__$(OS)_$(ARCH)
 
 BUILD_IMAGE ?= golang:1.12-alpine
+# Tweaked image used for test runs (see `test.Dockerfile`)
 TEST_IMAGE ?= martinheinz/golang:1.12-alpine-test
 
 # If you want to build all binaries, see the 'all-build' rule.
 # If you want to build all containers, see the 'all-container' rule.
-# If you want to build AND push all containers, see the 'all-push' rule.
 all: build
 
 # For the following OS/ARCH expansions, we transform OS/ARCH into OS_ARCH
@@ -59,8 +61,6 @@ push-%:
 all-build: $(addprefix build-, $(subst /,_, $(ALL_PLATFORMS)))
 
 all-container: $(addprefix container-, $(subst /,_, $(ALL_PLATFORMS)))
-
-all-push: $(addprefix push-, $(subst /,_, $(ALL_PLATFORMS)))
 
 build: bin/$(OS)_$(ARCH)/$(BIN)
 
@@ -140,20 +140,16 @@ say_container_name:
 push: .push-$(DOTFILE_IMAGE) say_push_name
 .push-$(DOTFILE_IMAGE): .container-$(DOTFILE_IMAGE)
 	@docker push $(IMAGE):$(TAG)
+
+push-latest: .push-$(DOTFILE_IMAGE) say_push_name_latest
+.push-$(DOTFILE_IMAGE): .container-$(DOTFILE_IMAGE)
 	@docker push $(IMAGE):latest
 
 say_push_name:
 	@echo "pushed: $(IMAGE):$(TAG)"
 
-manifest-list: push
-	platforms=$$(echo $(ALL_PLATFORMS) | sed 's/ /,/g');  \
-	manifest-tool                                         \
-	    --username=oauth2accesstoken                      \
-	    --password=$$(gcloud auth print-access-token)     \
-	    push from-args                                    \
-	    --platforms "$$platforms"                         \
-	    --template $(REGISTRY)/$(BIN):$(VERSION)__OS_ARCH \
-	    --target $(REGISTRY)/$(BIN):$(VERSION)
+say_push_name_latest:
+	@echo "pushed: $(IMAGE):$(TAG)"
 
 version:
 	@echo $(VERSION)
