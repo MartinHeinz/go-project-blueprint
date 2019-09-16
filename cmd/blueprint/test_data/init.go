@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// Initializes application config and SQLite database used for testing
 func init() {
 	// the test may be started from the home directory or a subdirectory
 	err := config.LoadConfig("/config") // on host use absolute path
@@ -25,6 +26,7 @@ func init() {
 	config.Config.DB.AutoMigrate(&models.User{})
 }
 
+// Resets testing database - deletes all tables, creates new ones using GORM migration and populates them using `db.sql` file
 func ResetDB() *gorm.DB {
 	config.Config.DB.DropTableIfExists(&models.User{}) // Note: Order matters
 	config.Config.DB.AutoMigrate(&models.User{})
@@ -42,6 +44,7 @@ func GetTestCaseFolder() string {
 	return "/test_data/test_case_data" // on host use absolute path
 }
 
+// Executes SQL file specified by file argument
 func runSQLFile(db *gorm.DB, file string) error {
 	s, err := ioutil.ReadFile(file)
 	if err != nil {
