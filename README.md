@@ -72,3 +72,11 @@ docker run docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:late
 - Copy Test Reporter ID
 - Go to Travis and Open Settings for Your Repository
 - Add Environment Variable: name: `CC_TEST_REPORTER_ID`, value: _Copied from CodeClimate_
+
+## Swagger
+
+- Application uses [gin-swagger](https://github.com/swaggo/gin-swagger).
+- To generate/update docs use `swag init` (from `backend/cmd/backend`)
+- You can find generated docs in `docs` package
+
+To view docs, navigate to <http://localhost:1234/swagger/index.html> or to <http://localhost:1234/swagger/doc.json> for raw _JSON_
