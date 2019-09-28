@@ -12,7 +12,7 @@ import (
 // GetUser godoc
 // @Summary Retrieves user based on given ID
 // @Produce json
-// @Param id query integer true "user ID"
+// @Param id path integer true "User ID"
 // @Success 200 {object} models.User
 // @Router /users/{id} [get]
 func GetUser(c *gin.Context) {

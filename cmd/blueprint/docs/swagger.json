@@ -11,7 +11,6 @@
         "license": {},
         "version": "1.0"
     },
-    "host": "{{.Host}}",
     "basePath": "/api/v1",
     "paths": {
         "/users/{id}": {
@@ -23,9 +22,9 @@
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "user ID",
+                        "description": "User ID",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -33,7 +32,6 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
                             "$ref": "#/definitions/models.User"
                         }
                     }

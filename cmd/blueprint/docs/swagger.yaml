@@ -19,7 +19,6 @@ definitions:
       updated_at:
         type: string
     type: object
-host: '{{.Host}}'
 info:
   contact:
     email: martin7.heinz@gmail.com
@@ -33,8 +32,8 @@ paths:
   /users/{id}:
     get:
       parameters:
-      - description: user ID
-        in: query
+      - description: User ID
+        in: path
         name: id
         required: true
         type: integer
@@ -45,6 +44,5 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.User'
-            type: object
       summary: Retrieves user based on given ID
 swagger: "2.0"
