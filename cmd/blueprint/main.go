@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"log"
 
 	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
@@ -56,7 +57,7 @@ func main() {
 
 	defer config.Config.DB.Close()
 
-	fmt.Println(fmt.Sprintf("Successfully connected to :%v", config.Config.DSN))
+	log.Println("Successfully connected to database")
 
-	r.RunTLS(fmt.Sprintf(":%v", config.Config.ServerPort), config.Config.CertFile, config.Config.KeyFile)
+	r.Run(fmt.Sprintf(":%v", config.Config.ServerPort))
 }

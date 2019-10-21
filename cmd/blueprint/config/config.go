@@ -32,9 +32,8 @@ func LoadConfig(configPaths ...string) error {
 	v.SetEnvPrefix("blueprint")
 	v.AutomaticEnv()
 
+	Config.DSN = v.Get("DSN").(string)
 	v.SetDefault("server_port", 1234)
-	v.SetDefault("cert_file", "/etc/certs/fullchain.pem")
-	v.SetDefault("key_file", "/etc/certs/privkey.pem")
 
 	for _, path := range configPaths {
 		v.AddConfigPath(path)

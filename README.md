@@ -40,9 +40,10 @@ Pull and Run:
 
 ```bash
 docker pull docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
-docker run docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
+docker run -p 1234:1234 \
+           -e BLUEPRINT_DSN="postgres://<USER>:<PASSWORD>@<DOCKER_SERVICE/URL>:<PORT>/<DB>?sslmode=disable" \
+           docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
 ```
-
 
 ### Setup new SonarCloud Project
 
