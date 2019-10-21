@@ -5,6 +5,13 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ec7ebefe63609984cb5c/test_coverage)](https://codeclimate.com/github/MartinHeinz/go-project-blueprint/test_coverage)
 [![Go Report Card](https://goreportcard.com/badge/github.com/MartinHeinz/go-project-blueprint)](https://goreportcard.com/report/github.com/MartinHeinz/go-project-blueprint)
 
+### Blog Post - More Information About This Repo
+
+You can find more information about this project/repository and how to use it in few blog post:
+
+- [Ultimate Setup for Your Next Golang Project](https://towardsdatascience.com/ultimate-setup-for-your-next-golang-project-1cc989ad2a96?source=friends_link&sk=2be68bb1ae993c17afc7d5c39a8be909)
+- [Setting up GitHub Package Registry with Docker and Golang](https://towardsdatascience.com/setting-up-github-package-registry-with-docker-and-golang-7a75a2533139?source=friends_link&sk=0c5d6868219d828511627456604394e6)
+
 ### Setting Up
 - Replace All Occurrences of `martinheinz/go-project-blueprint` with your username repository name
 - Replace All Occurrences of `blueprint` with your desired image name
