@@ -42,6 +42,7 @@ Pull and Run:
 docker pull docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
 docker run -p 1234:1234 \
            -e BLUEPRINT_DSN="postgres://<USER>:<PASSWORD>@<DOCKER_SERVICE/URL>:<PORT>/<DB>?sslmode=disable" \
+           -e BLUEPRINT_API_KEY="api_key" \
            docker.pkg.github.com/martinheinz/go-project-blueprint/blueprint:latest
 ```
 
@@ -77,7 +78,7 @@ docker run -p 1234:1234 \
 ## Swagger
 
 - Application uses [gin-swagger](https://github.com/swaggo/gin-swagger).
-- To generate/update docs use `swag init` (from `backend/cmd/backend`)
+- To generate/update docs use `swag init` (from `/go-project-blueprint/cmd/blueprint`)
 - You can find generated docs in `docs` package
 
 To view docs, navigate to <http://localhost:1234/swagger/index.html> or to <http://localhost:1234/swagger/doc.json> for raw _JSON_

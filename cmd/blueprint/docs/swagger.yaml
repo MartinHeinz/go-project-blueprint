@@ -24,7 +24,9 @@ info:
     email: martin7.heinz@gmail.com
     name: API Support
   description: Swagger API for Golang Project Blueprint.
-  license: {}
+  license:
+    name: MIT
+    url: https://github.com/MartinHeinz/go-project-blueprint/blob/master/LICENSE
   termsOfService: http://swagger.io/terms/
   title: Blueprint Swagger API
   version: "1.0"
@@ -44,5 +46,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
       summary: Retrieves user based on given ID
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

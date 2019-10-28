@@ -8,13 +8,21 @@
             "name": "API Support",
             "email": "martin7.heinz@gmail.com"
         },
-        "license": {},
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/MartinHeinz/go-project-blueprint/blob/master/LICENSE"
+        },
         "version": "1.0"
     },
     "basePath": "/api/v1",
     "paths": {
         "/users/{id}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -68,6 +76,13 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

@@ -18,6 +18,8 @@ type appConfig struct {
 	ServerPort int `mapstructure:"server_port"`
 	// the data source name (DSN) for connecting to the database. required.
 	DSN string `mapstructure:"dsn"`
+	// the API key needed to authorize to API. required.
+	ApiKey string `mapstructure:"api_key"`
 	// Certificate file for HTTPS
 	CertFile string `mapstructure:"cert_file"`
 	// Private key file for HTTPS
@@ -33,6 +35,7 @@ func LoadConfig(configPaths ...string) error {
 	v.AutomaticEnv()
 
 	Config.DSN = v.Get("DSN").(string)
+	Config.ApiKey = v.Get("API_KEY").(string)
 	v.SetDefault("server_port", 1234)
 
 	for _, path := range configPaths {

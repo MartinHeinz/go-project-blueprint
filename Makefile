@@ -167,6 +167,8 @@ test: $(BUILD_DIRS)
 	    -v $$(pwd)/cmd/blueprint/test_data:/test_data           \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
+	    --env BLUEPRINT_API_KEY=DUMMY                           \
+	    --env BLUEPRINT_DSN=DUMMY                               \
 	    $(TEST_IMAGE)                                           \
 	    /bin/sh -c "                                            \
 	        ARCH=$(ARCH)                                        \
@@ -191,6 +193,8 @@ ci: $(BUILD_DIRS)
 	    -v $$(pwd)/:/coverage                                   \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
+		--env BLUEPRINT_API_KEY=DUMMY                           \
+		--env BLUEPRINT_DSN=DUMMY                               \
 	    $(TEST_IMAGE)                                           \
 	    /bin/sh -c "                                            \
 	        ARCH=$(ARCH)                                        \
