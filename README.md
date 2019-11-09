@@ -1,16 +1,18 @@
-## Blueprint/Boilerplate For Golang Projects
+# Blueprint/Boilerplate For Golang Projects
 
 [![Build Status](https://travis-ci.com/MartinHeinz/go-project-blueprint.svg?branch=master)](https://travis-ci.com/MartinHeinz/go-project-blueprint)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MartinHeinz_go-project-blueprint&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MartinHeinz_go-project-blueprint)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ec7ebefe63609984cb5c/test_coverage)](https://codeclimate.com/github/MartinHeinz/go-project-blueprint/test_coverage)
 [![Go Report Card](https://goreportcard.com/badge/github.com/MartinHeinz/go-project-blueprint)](https://goreportcard.com/report/github.com/MartinHeinz/go-project-blueprint)
 
-### Blog Post - More Information About This Repo
+## Blog Posts - More Information About This Repo
 
-You can find more information about this project/repository and how to use it in few blog post:
+You can find more information about this project/repository and how to use it in following blog posts:
 
 - [Ultimate Setup for Your Next Golang Project](https://towardsdatascience.com/ultimate-setup-for-your-next-golang-project-1cc989ad2a96?source=friends_link&sk=2be68bb1ae993c17afc7d5c39a8be909)
 - [Setting up GitHub Package Registry with Docker and Golang](https://towardsdatascience.com/setting-up-github-package-registry-with-docker-and-golang-7a75a2533139?source=friends_link&sk=0c5d6868219d828511627456604394e6)
+- [Building RESTful APIs in Golang](https://towardsdatascience.com/building-restful-apis-in-golang-e3fe6e3f8f95?source=friends_link&sk=8069b4cf34194bdbe73c0e58f37ac334)
+- [Setting Up Swagger Docs for Golang API](https://towardsdatascience.com/setting-up-swagger-docs-for-golang-api-8d0442263641?source=friends_link&sk=224695e91ff6867e3718095f85880b79)
 
 ### Setting Up
 - Replace All Occurrences of `martinheinz/go-project-blueprint` with your username repository name
